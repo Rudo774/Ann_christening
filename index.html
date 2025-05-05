@@ -50,25 +50,79 @@
             margin: 25px auto;
             width: 50%;
         }
+        .countdown {
+            font-family: 'Arial', sans-serif;
+            font-size: 24px;
+            color: #d4a373;
+            margin: 20px 0;
+            padding: 15px;
+            background: #fff9f9;
+            border-radius: 8px;
+            display: inline-block;
+        }
+        .countdown span {
+            font-weight: bold;
+        }
     </style>
 </head>
 <body>
     <div class="container">
-        <h1>Крещение нашей дочки</h1>
+        <h1>Приглашение на крещение Анны!</h1>
         <p>Дорогие родные и друзья!</p>
-        <p>С радостью приглашаем вас разделить с нами этот светлый день — таинство крещения нашей любимой доченьки.</p>
+        <p>С радостью приглашаем вас разделить с нами этот светлый день — таинство крещения нашей любимой дочки.</p>
         
         <div class="divider"></div>
         
-        <p class="date">29 июня 2025 года в 14:30</p>
+        <p class="date">29 июня 2025 года</p>
+        <p class="date">Начало таинства в 14:30</p>
         <p class="place">Армянская Апостольская Церковь<br>Олимпийский проспект, 9</p>
         
         <div class="divider"></div>
+
+        <!-- Обратный отсчёт -->
+        <div class="countdown">
+            До крещения осталось:<br>
+            <span id="days">00</span> дней 
+            <span id="hours">00</span> часов 
+            <span id="minutes">00</span> минут 
+            <span id="seconds">00</span> секунд
+        </div>
         
         <p>Ваше присутствие сделает этот день ещё более трогательным и значимым для нас!</p>
         <p>После церемонии ждём всех на праздничном угощении.</p>
         
-        <div class="signature">С любовью,<br>[Ваши имена]</div>
+        <h1>С любовью,<br>Рудольф, Нино и Анна.</h1>
     </div>
+
+    <script>
+        // Обратный отсчёт до 29 июня 2025, 14:30
+        function updateCountdown() {
+            const targetDate = new Date('June 29, 2025 14:30:00').getTime();
+            const now = new Date().getTime();
+            const distance = targetDate - now;
+
+            if (distance < 0) {
+                document.getElementById('days').innerHTML = '00';
+                document.getElementById('hours').innerHTML = '00';
+                document.getElementById('minutes').innerHTML = '00';
+                document.getElementById('seconds').innerHTML = '00';
+                return;
+            }
+
+            const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+            document.getElementById('days').innerHTML = days.toString().padStart(2, '0');
+            document.getElementById('hours').innerHTML = hours.toString().padStart(2, '0');
+            document.getElementById('minutes').innerHTML = minutes.toString().padStart(2, '0');
+            document.getElementById('seconds').innerHTML = seconds.toString().padStart(2, '0');
+        }
+
+// Обновляем отсчёт каждую секунду
+        updateCountdown();
+        setInterval(updateCountdown, 1000);
+    </script>
 </body>
 </html>
